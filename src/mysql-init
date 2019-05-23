@@ -1,0 +1,13 @@
+SIGN=$1
+if [ "$SIGN" != "" ];
+then
+        mysql -uroot -proot <<EOF
+        create user '$SIGN'@'%' identified by '$SIGN';
+        create database $SIGN DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+        grant all privileges on $SIGN.* to '$SIGN'@'%' with grant option;
+        flush privileges;
+EOF
+
+else
+        exit 1
+fi
